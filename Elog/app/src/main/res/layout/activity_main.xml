@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:orientation="vertical"
+    tools:context="com.eastin.log.MainActivity"
+    android:focusableInTouchMode="true">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:text="欢迎使用Elog"
+        android:textSize="12sp"
+        android:textColor="#999999"
+        android:gravity="center_vertical"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:text="Tag最大数"
+            android:textSize="12sp"
+            android:textColor="#999999"
+            android:gravity="center_vertical"
+            />
+        <SeekBar
+            android:id="@+id/sbTag"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            />
+        <TextView
+            android:id="@+id/tvTagNum"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:text="10"
+            android:textSize="12sp"
+            android:textColor="#333333"
+            android:gravity="center"
+            />
+        <Button
+            android:id="@+id/btnTagNum"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:text="更新"
+            android:textSize="12sp"
+            android:textColor="#555555"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:text="Log最大数"
+            android:textSize="12sp"
+            android:textColor="#999999"
+            android:gravity="center_vertical"
+            />
+        <SeekBar
+            android:id="@+id/sbLog"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            />
+        <TextView
+            android:id="@+id/tvLogNum"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:text="1000"
+            android:textSize="12sp"
+            android:textColor="#333333"
+            android:gravity="center"
+            />
+        <Button
+            android:id="@+id/btnLogNum"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:text="更新"
+            android:textSize="12sp"
+            android:textColor="#555555"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:text="Log长按"
+            android:textSize="12sp"
+            android:textColor="#999999"
+            android:gravity="center_vertical"
+            />
+        <Switch
+            android:id="@+id/sCopyTo"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp" />
+
+        <TextView
+            android:id="@+id/tvCopyTo"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="40dp"
+            android:text="复制到粘贴板"
+            android:textSize="12sp"
+            android:textColor="#333333"
+            android:gravity="center"
+            />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnStart"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="40dp"
+            android:text="启 动"
+            android:textSize="12sp"
+            android:textColor="#555555"/>
+        <Button
+            android:id="@+id/btnStop"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="40dp"
+            android:text="关 闭"
+            android:textSize="12sp"
+            android:textColor="#555555"/>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:text="注：需启动后更新才有效！"
+        android:textSize="12sp"
+        android:textColor="#FF0000"
+        android:gravity="center_vertical"
+        />
+</LinearLayout>
