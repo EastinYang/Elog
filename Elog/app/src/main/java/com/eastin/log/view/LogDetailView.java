@@ -3,14 +3,13 @@ package com.eastin.log.view;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Adapter;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.eastin.log.R;
 import com.eastin.log.adapter.LogDetailAdapter;
 import com.eastin.log.bean.EventBusUpdateBean;
+import com.eastin.log.interfaces.IKeyboardListener;
 import com.eastin.log.interfaces.IMain;
 import com.eastin.log.provider.LogProvider;
 
@@ -19,11 +18,12 @@ import de.greenrobot.event.EventBus;
 /**
  * Created by Eastin on 16/7/6.
  */
-public class LogDetailView extends BaseView implements View.OnClickListener {
+public class LogDetailView extends BaseView implements View.OnClickListener, IKeyboardListener {
     private LogDetailAdapter detailAdapter;
     private String logName;
     private String logDetail;
-    private TextView tvClear, tvTop;
+    private TextView tvClear, tvTop, tvFilter;
+    private KeyboardView kbView;
 
     private LogProvider logProvider;
 
@@ -43,16 +43,20 @@ public class LogDetailView extends BaseView implements View.OnClickListener {
         lvLogDetail = (ListView) view.findViewById(R.id.lvLogDetail);
         tvClear = (TextView) view.findViewById(R.id.tvClear);
         tvTop = (TextView) view.findViewById(R.id.tvTop);
+        tvFilter = (TextView) view.findViewById(R.id.tvFilter);
+        kbView = (KeyboardView) view.findViewById(R.id.kbView);
     }
 
     @Override
     protected void initViewListener() {
         tvClear.setOnClickListener(this);
         tvTop.setOnClickListener(this);
+        kbView.setKeyboardListener(this);
     }
 
     @Override
     protected void doOtherThings() {
+        kbView.registTextView(tvFilter);
         logProvider = new LogProvider(context);
     }
 
@@ -109,7 +113,20 @@ public class LogDetailView extends BaseView implements View.OnClickListener {
     public void setVisibility(int visibility) {
         if(visibility == View.VISIBLE) {
             setTitle();
+        } else {
+            if (kbView != null) {
+                tvFilter.setText("");
+                kbView.setVisibility(View.GONE);
+            }
         }
         super.setVisibility(visibility);
+    }
+
+    @Override
+    public void onTextChanged(String oldValue, String newValue) {
+        if(detailAdapter != null) {
+            detailAdapter.setLog(logName, newValue);
+            detailAdapter.notifyDataSetChanged();
+        }
     }
 }

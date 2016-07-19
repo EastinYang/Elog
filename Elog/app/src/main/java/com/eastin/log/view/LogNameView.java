@@ -12,19 +12,20 @@ import com.eastin.log.bean.CallbackActionBean;
 import com.eastin.log.bean.CallbackModel;
 import com.eastin.log.bean.EventBusUpdateBean;
 import com.eastin.log.db.LogNameTable;
+import com.eastin.log.interfaces.IKeyboardListener;
 import com.eastin.log.interfaces.ILogNameItemClick;
 import com.eastin.log.interfaces.IMain;
 import com.eastin.log.provider.LogNameProvider;
 
 import de.greenrobot.event.EventBus;
 
-
 /**
  * Created by Eastin on 16/7/6.
  */
-public class LogNameView extends BaseView implements ILogNameItemClick, View.OnClickListener {
+public class LogNameView extends BaseView implements ILogNameItemClick, View.OnClickListener, IKeyboardListener {
     private ListView lvLog;
-    private TextView tvClear, tvTop;
+    private TextView tvClear, tvTop, tvFilter;
+    private KeyboardView kbView;
 
     private LogNameAdapter logNameAdapter;
     private String logName;
@@ -44,16 +45,20 @@ public class LogNameView extends BaseView implements ILogNameItemClick, View.OnC
         lvLog = (ListView) view.findViewById(R.id.lvLog);
         tvClear = (TextView) view.findViewById(R.id.tvClear);
         tvTop = (TextView) view.findViewById(R.id.tvTop);
+        tvFilter = (TextView) view.findViewById(R.id.tvFilter);
+        kbView = (KeyboardView) view.findViewById(R.id.kbView);
     }
 
     @Override
     protected void initViewListener() {
         tvClear.setOnClickListener(this);
         tvTop.setOnClickListener(this);
+        kbView.setKeyboardListener(this);
     }
 
     @Override
     protected void doOtherThings() {
+        kbView.registTextView(tvFilter);
         logNameProvider = new LogNameProvider(context);
         initMenuList();
     }
@@ -109,7 +114,19 @@ public class LogNameView extends BaseView implements ILogNameItemClick, View.OnC
             Bundle bundle = new Bundle();
             bundle.putString("title", "首页");
             EventBus.getDefault().post(new EventBusUpdateBean("setTitle", bundle));
+        } else {
+            if (kbView != null) {
+                kbView.setVisibility(View.GONE);
+            }
         }
         super.setVisibility(visibility);
+    }
+
+    @Override
+    public void onTextChanged(String oldValue, String newValue) {
+        if(logNameAdapter != null) {
+            logNameAdapter.setLogName(newValue);
+            logNameAdapter.notifyDataSetChanged();
+        }
     }
 }

@@ -36,6 +36,7 @@ public class ViewManager {
         try {
             if (viewList.size() > 1) {
                 parent.removeViewAt(viewList.size() - 1);
+                viewList.get(viewList.size() - 1).setVisibility(View.GONE);
                 viewList.get(viewList.size() - 2).setVisibility(View.VISIBLE);
                 viewList.remove(viewList.size() - 1);
                 return true;
