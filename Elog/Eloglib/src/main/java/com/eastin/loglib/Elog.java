@@ -12,9 +12,11 @@ import java.util.Date;
 public class Elog {
     private static Context context;
     private static boolean isOpen;
+    private static SimpleDateFormat simpleDateFormat;
 
     public static void init(Context context) {
         Elog.context = context.getApplicationContext();
+        simpleDateFormat = new SimpleDateFormat("yyyyMMdd HH:mm:ss:SSS");
     }
 
     public static void close() {
@@ -43,8 +45,10 @@ public class Elog {
     }
 
     private static String getSystemTime() {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd HH:mm:ss:SSS");
-        return simpleDateFormat.format(new Date());
+        if(simpleDateFormat != null) {
+            return simpleDateFormat.format(new Date());
+        }
+        return "";
     }
 
     public static void i(String tag, String log) {

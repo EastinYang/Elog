@@ -139,6 +139,7 @@ public class MainService extends Service implements View.OnTouchListener, View.O
         tvBack.setOnClickListener(this);
         tvHide.setOnClickListener(this);
         tvSetting.setOnClickListener(this);
+        tvTitle.setOnClickListener(this);
     }
 
     private void doOtherThings() {
@@ -195,6 +196,7 @@ public class MainService extends Service implements View.OnTouchListener, View.O
         menuView.setVisibility(View.GONE);
     }
 
+    private float xMove = 0;
     @Override
     public boolean onTouch(View v, MotionEvent event) {
         x = event.getRawX();
@@ -211,17 +213,22 @@ public class MainService extends Service implements View.OnTouchListener, View.O
                 touchY = event.getY();
                 break;
             case MotionEvent.ACTION_MOVE:
-                isMoving = true;
-                // 触摸坐标赋值
-                params.x = (int) (x - touchX);
-                params.y = (int) (y - touchY);
-                wm.updateViewLayout(touchBallView, params);
+                xMove = event.getX() - touchX;
+                if (xMove < -10 || xMove > 10) {
+                    isMoving = true;
+                    // 触摸坐标赋值
+                    params.x = (int) (x - touchX);
+                    params.y = (int) (y - touchY);
+                    wm.updateViewLayout(touchBallView, params);
+                }
                 break;
             case MotionEvent.ACTION_UP:
-                // 触摸坐标赋值
-                touchX = touchY = 0;
-                if(ballHandler != null) {
-                    ballHandler.sendEmptyMessageDelayed(HIDE_BALL, BALL_VISIBLE_TIME);
+                if (!isMoving) {
+                    // 触摸坐标赋值
+                    touchX = touchY = 0;
+                    if (ballHandler != null) {
+                        ballHandler.sendEmptyMessageDelayed(HIDE_BALL, BALL_VISIBLE_TIME);
+                    }
                 }
                 break;
             default:
@@ -249,6 +256,18 @@ public class MainService extends Service implements View.OnTouchListener, View.O
             case R.id.tvSetting:
                 addBaseView(getSettingView());
                 break;
+            case R.id.tvTitle:
+                clickTop();
+                break;
+        }
+    }
+
+    private void clickTop() {
+        if(viewManager != null) {
+            BaseView view = viewManager.getTopView();
+            if(view != null) {
+                view.toTop();
+            }
         }
     }
 

@@ -24,7 +24,7 @@ import de.greenrobot.event.EventBus;
  */
 public class LogNameView extends BaseView implements ILogNameItemClick, View.OnClickListener, IKeyboardListener {
     private ListView lvLog;
-    private TextView tvClear, tvTop, tvFilter;
+    private TextView tvClear, tvFilter, tvHideKB;
     private KeyboardView kbView;
 
     private LogNameAdapter logNameAdapter;
@@ -44,15 +44,15 @@ public class LogNameView extends BaseView implements ILogNameItemClick, View.OnC
     protected void initView() {
         lvLog = (ListView) view.findViewById(R.id.lvLog);
         tvClear = (TextView) view.findViewById(R.id.tvClear);
-        tvTop = (TextView) view.findViewById(R.id.tvTop);
         tvFilter = (TextView) view.findViewById(R.id.tvFilter);
+        tvHideKB = (TextView) view.findViewById(R.id.tvHideKB);
         kbView = (KeyboardView) view.findViewById(R.id.kbView);
     }
 
     @Override
     protected void initViewListener() {
         tvClear.setOnClickListener(this);
-        tvTop.setOnClickListener(this);
+        tvHideKB.setOnClickListener(this);
         kbView.setKeyboardListener(this);
     }
 
@@ -96,13 +96,13 @@ public class LogNameView extends BaseView implements ILogNameItemClick, View.OnC
             case R.id.tvClear:
                 logNameProvider.clearLogNames();
                 break;
-            case R.id.tvTop:
-                try {
-                    if (lvLog != null) {
-                        lvLog.setSelection(0);
+            case R.id.tvHideKB:
+                if(!"".equals(tvFilter.getText().toString())) {
+                    tvFilter.setText("");
+                    if (logNameAdapter != null) {
+                        logNameAdapter.setLogName("");
+                        logNameAdapter.notifyDataSetChanged();
                     }
-                } catch (Exception e) {
-
                 }
                 break;
         }
@@ -127,6 +127,17 @@ public class LogNameView extends BaseView implements ILogNameItemClick, View.OnC
         if(logNameAdapter != null) {
             logNameAdapter.setLogName(newValue);
             logNameAdapter.notifyDataSetChanged();
+        }
+    }
+
+    @Override
+    public void toTop() {
+        try {
+            if (lvLog != null) {
+                lvLog.setSelection(0);
+            }
+        } catch (Exception e) {
+
         }
     }
 }

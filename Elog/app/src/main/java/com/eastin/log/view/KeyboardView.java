@@ -81,7 +81,7 @@ public class KeyboardView extends RelativeLayout implements View.OnClickListener
         getKeyList().add(new String[]{"1","2","3","4","5","6","7","8","9","0"});
         getKeyList().add(new String[]{"Q","W","E","R","T","Y","U","I","O","P"});
         getKeyList().add(new String[]{"A","S","D","F","G","H","J","K","L", " "});
-        getKeyList().add(new String[]{"Z","X","C","V","B","N","M","<","<<", "x"});
+        getKeyList().add(new String[]{"Z","X","C","V","B","N","M","<","<<", "关"});
     }
 
     private void generateKey() {
@@ -153,7 +153,7 @@ public class KeyboardView extends RelativeLayout implements View.OnClickListener
                 textView.setText("");
                 addChange(before, "");
             }
-        } else if("x".equals(v.getTag())) {
+        } else if("关".equals(v.getTag())) {
             this.setVisibility(View.GONE);
         } else {
             if(textView != null) {

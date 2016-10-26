@@ -22,7 +22,7 @@ public class LogDetailView extends BaseView implements View.OnClickListener, IKe
     private LogDetailAdapter detailAdapter;
     private String logName;
     private String logDetail;
-    private TextView tvClear, tvTop, tvFilter;
+    private TextView tvClear, tvFilter, tvHideKB;
     private KeyboardView kbView;
 
     private LogProvider logProvider;
@@ -42,15 +42,15 @@ public class LogDetailView extends BaseView implements View.OnClickListener, IKe
     protected void initView() {
         lvLogDetail = (ListView) view.findViewById(R.id.lvLogDetail);
         tvClear = (TextView) view.findViewById(R.id.tvClear);
-        tvTop = (TextView) view.findViewById(R.id.tvTop);
         tvFilter = (TextView) view.findViewById(R.id.tvFilter);
+        tvHideKB = (TextView) view.findViewById(R.id.tvHideKB);
         kbView = (KeyboardView) view.findViewById(R.id.kbView);
     }
 
     @Override
     protected void initViewListener() {
         tvClear.setOnClickListener(this);
-        tvTop.setOnClickListener(this);
+        tvHideKB.setOnClickListener(this);
         kbView.setKeyboardListener(this);
     }
 
@@ -91,13 +91,13 @@ public class LogDetailView extends BaseView implements View.OnClickListener, IKe
                     logProvider.clearLogDetails(logName);
                 }
                 break;
-            case R.id.tvTop:
-                try {
-                    if (lvLogDetail != null) {
-                        lvLogDetail.setSelection(0);
+            case R.id.tvHideKB:
+                if(!"".equals(tvFilter.getText().toString())) {
+                    tvFilter.setText("");
+                    if (detailAdapter != null) {
+                        detailAdapter.setLog(logName, "");
+                        detailAdapter.notifyDataSetChanged();
                     }
-                } catch (Exception e) {
-
                 }
                 break;
         }
@@ -127,6 +127,17 @@ public class LogDetailView extends BaseView implements View.OnClickListener, IKe
         if(detailAdapter != null) {
             detailAdapter.setLog(logName, newValue);
             detailAdapter.notifyDataSetChanged();
+        }
+    }
+
+    @Override
+    public void toTop() {
+        try {
+            if (lvLogDetail != null) {
+                lvLogDetail.setSelection(0);
+            }
+        } catch (Exception e) {
+
         }
     }
 }

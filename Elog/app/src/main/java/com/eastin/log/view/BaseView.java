@@ -40,4 +40,8 @@ public abstract class BaseView extends RelativeLayout {
     public void updateViewDetail(Bundle bundle) {
 
     }
+
+    public void toTop() {
+
+    }
 }

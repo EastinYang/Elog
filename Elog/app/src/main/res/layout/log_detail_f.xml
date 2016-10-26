@@ -26,19 +26,34 @@
         android:layout_height="50dp"
         android:orientation="horizontal"
         android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp">
-        <TextView
-            android:id="@+id/tvFilter"
+        android:layout_marginRight="10dp"
+        android:gravity="center_vertical">
+        <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="40dp"
-            android:layout_weight="2"
-            android:textSize="15sp"
-            android:textColor="#FFFFFF"
-            android:gravity="left|center_vertical"
-            android:text=""
-            android:background="@drawable/menu_btn"
-            android:padding="10dp"
-            />
+            android:layout_weight="2">
+            <TextView
+                android:id="@+id/tvFilter"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textSize="15sp"
+                android:textColor="#FFFFFF"
+                android:gravity="left|center_vertical"
+                android:background="@drawable/menu_btn"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="30dp"
+                />
+            <TextView
+                android:id="@+id/tvHideKB"
+                android:layout_width="30dp"
+                android:layout_height="40dp"
+                android:text="&lt;&lt;"
+                android:textSize="15sp"
+                android:gravity="center"
+                android:layout_alignParentRight="true"/>
+        </RelativeLayout>
         <TextView
             android:id="@+id/tvClear"
             android:layout_width="0dp"
@@ -48,16 +63,6 @@
             android:textColor="#FFFFFF"
             android:gravity="center"
             android:text="清除"
-            />
-        <TextView
-            android:id="@+id/tvTop"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:textSize="15sp"
-            android:textColor="#FFFFFF"
-            android:gravity="center"
-            android:text="Top"
             />
     </LinearLayout>
     <com.eastin.log.view.KeyboardView

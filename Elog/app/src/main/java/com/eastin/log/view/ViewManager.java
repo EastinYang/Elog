@@ -32,6 +32,13 @@ public class ViewManager {
         }
     }
 
+    public BaseView getTopView() {
+        if(viewList.size() > 0) {
+            return viewList.get(viewList.size() - 1);
+        }
+        return null;
+    }
+
     public boolean removeTopView() {
         try {
             if (viewList.size() > 1) {
